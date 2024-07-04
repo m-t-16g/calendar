@@ -1,6 +1,6 @@
 <?php
 const PDO_LOCALHOST = 'mysql:host=localhost;dbname=calendar;charset=utf8';
-const PDO_CONTAINER = 'mysql:host=db;dbname=calendar;chaeset=utf8';
+const PDO_CONTAINER = 'mysql:host=db;dbname=testdb;chaeset=utf8';
 const PDO_STARSERVER = 'mysql:host=mysql1.php.starfree.ne.jp;dbname=mercy2g_db;charset=utf8';
 $errorlog = '';
 $container_log = '';
@@ -15,13 +15,13 @@ try {
 // ローカルホストの接続に失敗していたらcontainerのほうのdbに接続を試す
 if ($errorlog) {
     try {
-        $pdo = new PDO(PDO_CONTAINER, 'cca', 'password');
+        $pdo = new PDO(PDO_CONTAINER, 'testuser', 'testpass');
     } catch (PDOException $e) {
         $container_log .= 'コンテナ―接続ログ' . $e;
     }
 }
 // スターサーバの接続テスト
-if ($errorlog && $container_log) {
+if ($container_log) {
     try {
         $pdo = new PDO(PDO_STARSERVER, 'mercy2g_cca', 'X9U5WC9SYnQ3YMc');
     } catch (PDOException $e) {

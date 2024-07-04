@@ -1,259 +1,260 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-  --background: #d2f7e4;
-  --primary: #52e4b1;
-  --black: #333333;
-  --white: #fbfeff;
-  --badge: #f9e773;
-  --alert: #f25d5d;
+    --background: #d2f7e4;
+    --primary: #52e4b1;
+    --black: #333333;
+    --white: #fbfeff;
+    --badge: #f9e773;
+    --alert: #f25d5d;
 }
 
 body {
-  background-color: var(--background);
+    background-color: var(--background);
 }
 h1 {
-  text-align: center;
-  margin: 0 1.5rem;
-  color: var(--primary);
+    text-align: center;
+    margin: 0 1.5rem;
+    color: var(--primary);
 }
 .dialog {
-  top: -2.5rem;
-  left: 1rem;
-  border: none;
-  background-color: var(--badge);
-  color: var(--primary);
-  border-radius: 0.25rem;
-  padding: 0.125rem 1rem;
-  animation-name: message;
-  animation-duration: 0.5s;
+    top: -2.5rem;
+    left: 1rem;
+    border: none;
+    background-color: var(--badge);
+    color: var(--primary);
+    border-radius: 0.25rem;
+    padding: 0.125rem 1rem;
+    animation-name: message;
+    animation-duration: 0.5s;
 }
 .calendar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 80%;
-  position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 80%;
+    position: relative;
 }
 .week,
 .date {
-  flex-basis: 14%;
-  text-align: center;
-  height: 3.6rem;
+    flex-basis: 14%;
+    text-align: center;
+    height: 3.6rem;
 }
 .week {
-  background-color: var(--primary);
-  color: var(--white);
-  padding-top: 1rem;
-  border-top: 1px solid var(--primary);
-  border-bottom: 1px solid var(--primary);
-  border-right: 1px solid var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
+    padding-top: 1rem;
+    border-top: 1px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
+    border-right: 1px solid var(--primary);
 }
 .date {
-  background-color: var(--white);
-  height: 4.5rem;
-  border-bottom: 1px solid var(--primary);
-  border-right: 1px solid var(--primary);
+    background-color: var(--white);
+    height: 4.5rem;
+    border-bottom: 1px solid var(--primary);
+    border-right: 1px solid var(--primary);
 }
 .date-num {
-  text-align: left;
-  padding-left: 0.25rem;
+    text-align: left;
+    padding-left: 0.25rem;
 }
 .date-title {
-  font-size: 0.6rem;
-  width: fit-content;
-  max-width: 95%;
-  background-color: var(--badge);
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0.25rem 0.25rem;
-  border-radius: 0.25rem;
+    font-size: 0.6rem;
+    width: fit-content;
+    max-width: 95%;
+    background-color: var(--badge);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.25rem 0.25rem;
+    border-radius: 0.25rem;
 }
 .week:first-of-type,
 .date:nth-of-type(7n + 1) {
-  border-left: 1px solid var(--primary);
+    border-left: 1px solid var(--primary);
 }
 .control {
-  margin: 2rem auto 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    margin: 2rem auto 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .button {
-  width: 2rem;
-  height: 2rem;
-  background-color: var(--primary);
-  border-radius: 50%;
-  position: relative;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--primary);
+    border-radius: 50%;
+    position: relative;
 }
 .button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 #left::after {
-  position: absolute;
-  content: "";
-  top: 29%;
-  left: 33%;
-  width: 33%;
-  height: 33%;
-  border-bottom: 2px solid var(--white);
-  border-left: 2px solid var(--white);
-  transform: rotate(45deg);
+    position: absolute;
+    content: "";
+    top: 29%;
+    left: 33%;
+    width: 33%;
+    height: 33%;
+    border-bottom: 2px solid var(--white);
+    border-left: 2px solid var(--white);
+    transform: rotate(45deg);
 }
 #right::after {
-  position: absolute;
-  content: "";
-  top: 29%;
-  right: 33%;
-  width: 33%;
-  height: 33%;
-  border-bottom: 2px solid var(--white);
-  border-right: 2px solid var(--white);
-  transform: rotate(-45deg);
+    position: absolute;
+    content: "";
+    top: 29%;
+    right: 33%;
+    width: 33%;
+    height: 33%;
+    border-bottom: 2px solid var(--white);
+    border-right: 2px solid var(--white);
+    transform: rotate(-45deg);
 }
 .valid:hover {
-  background-color: var(--background);
-  cursor: pointer;
+    background-color: var(--background);
+    cursor: pointer;
 }
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--background);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
 }
 .modal-card {
-  width: 40%;
-  height: auto;
-  margin: 2rem auto;
-  max-width: 400px;
-  background-color: var(--white);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem 1rem;
-  position: relative;
+    width: 40%;
+    height: auto;
+    margin: 2rem auto;
+    max-width: 400px;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem 1rem;
+    position: relative;
 }
 .close-btn {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
 }
 .close-btn:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 .close-btn::after,
 .close-btn::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0.5rem;
-  height: 1.5rem;
-  background: var(--primary);
-  border-radius: 0.25rem;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.5rem;
+    height: 1.5rem;
+    background: var(--primary);
+    border-radius: 0.25rem;
 }
 .close-btn::before {
-  transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
 }
 .close-btn::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 .modal-para {
-  margin-top: 0.5rem;
+    margin-top: 0.5rem;
 }
 .form-content {
-  width: 100%;
-  padding: 0.25rem;
+    width: 100%;
+    padding: 0.25rem;
 }
 .form-input {
-  height: 1.75rem;
+    height: 1.75rem;
 }
 .form-textbox {
-  display: block;
-  height: 5rem;
-  margin-bottom: 1rem;
+    display: block;
+    height: 5rem;
+    margin-bottom: 1rem;
 }
 .form-control {
-  display: flex;
+    display: flex;
 }
 .form-submit,
 .form-delete {
-  display: block;
-  margin-top: 0.75rem;
-  margin-left: auto;
-  padding: 0.25rem 0.5rem;
-  background-color: var(--primary);
-  color: var(--white);
-  border: 0;
-  border-radius: 0.25rem;
+    display: block;
+    margin-top: 0.75rem;
+    margin-left: auto;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: 0;
+    border-radius: 0.25rem;
 }
 .form-delete {
-  background-color: var(--alert);
-  margin-left: 0;
-  margin-right: auto;
+    background-color: var(--alert);
+    margin-left: 0;
+    margin-right: auto;
 }
-.form-submit:hover {
-  cursor: pointer;
+.form-submit:hover,
+.form-delete:hover {
+    cursor: pointer;
 }
 .hide {
-  display: none;
-  animation-name: modal-out;
-  animation-duration: 0.1s;
+    display: none;
+    animation-name: modal-out;
+    animation-duration: 0.1s;
 }
 .show {
-  display: block;
+    display: block;
 }
 .fade-in {
-  animation-name: fade-in;
-  animation-duration: 0.5s;
+    animation-name: fade-in;
+    animation-duration: 0.5s;
 }
 .fade-out {
-  animation-name: fade-out;
-  animation-duration: 0.5s;
+    animation-name: fade-out;
+    animation-duration: 0.5s;
 }
 /* アニメーション */
 @keyframes fade-in {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
 }
 @keyframes fade-out {
-  0% {
-    opacity: 1;
-    transform: translate(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
+    0% {
+        opacity: 1;
+        transform: translate(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
 }
 @keyframes modal-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes message {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
 }

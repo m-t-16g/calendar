@@ -109,9 +109,9 @@ CAL;
                     <p class="modal-para">カテゴリー</p>
                     <select class="form-content form-input" type="select" name="category" />
                     <option value="0">選択してください</option>
-                    <option value="1">就職活動</option>
-                    <option value="2">訓練</option>
-                    <option value="3">プライベート</option>
+                    <option value="1">仕事</option>
+                    <option value="2">プライベート</option>
+                    <option value="3">その他</option>
                     </select>
                 </label>
                 <label>
@@ -207,13 +207,13 @@ CAL;
                         Form.date.value = UseData.date;
                         Form.time.value = UseData.time;
                         switch (UseData.category) {
-                            case '就職活動':
+                            case '仕事':
                                 Form.category.options[1].selected = true
                                 break;
-                            case '訓練':
+                            case 'プライベート':
                                 Form.category.options[2].selected = true
                                 break;
-                            case 'プライベート':
+                            case 'その他':
                                 Form.category.options[3].selected = true
                                 break;
                             default:
@@ -246,9 +246,9 @@ CAL;
                 const Detail = Form.detail.value;
                 const CategoryMap = [
                     null,
-                    "就職活動",
-                    "訓練",
-                    "プライベート"
+                    "仕事",
+                    "プライベート",
+                    "その他"
                 ];
                 const FormData = {
                     "title": Title,
@@ -278,7 +278,6 @@ CAL;
                         return CurrentUrl;
                     }
                     location.href = SetMessage().href;
-
                 } else {
                     window.alert('全ての要素を入力してから登録してください');
                 }
