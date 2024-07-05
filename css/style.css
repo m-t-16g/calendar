@@ -11,6 +11,9 @@
     --white: #fbfeff;
     --badge: #f9e773;
     --alert: #f25d5d;
+    --work: #4293f5;
+    --private: #fac370;
+    --other: #e36bdf;
 }
 
 body {
@@ -57,9 +60,10 @@ h1 {
 }
 .date {
     background-color: var(--white);
-    height: 4.5rem;
+    height: 6rem;
     border-bottom: 1px solid var(--primary);
     border-right: 1px solid var(--primary);
+    overflow-y: auto;
 }
 .date-num {
     text-align: left;
@@ -70,10 +74,26 @@ h1 {
     width: fit-content;
     max-width: 95%;
     background-color: var(--badge);
-    margin-left: auto;
+    margin-left: 0.25em;
     margin-right: auto;
+    margin-bottom: 0.25em;
     padding: 0.25rem 0.25rem;
     border-radius: 0.25rem;
+    transition: background-color 0.5s;
+}
+.color-work {
+    background-color: var(--work);
+}
+.color-private {
+    background-color: var(--private);
+}
+.color-other {
+    background-color: var(--other);
+}
+.color-private:hover,
+.color-work:hover,
+.color-other:hover {
+    background-color: var(--alert);
 }
 .week:first-of-type,
 .date:nth-of-type(7n + 1) {

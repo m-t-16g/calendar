@@ -1,3 +1,11 @@
 sql/calendar.sql
 conection.php
-
+compose.yaml
+conection.php
+Dockerfile
+.gitignore
+php.ini
+.vscode/launch.json
+test.sql
+readme.md
+readme.md
