@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -10,6 +11,12 @@
 
 <body>
     <?php
+    // セッションを開始、ユーザ名guest,id=0
+    // ログインしていないユーザは基本このuidのカレンダーを表示する
+    $_SESSION['user'] = [
+        "name" => "guest",
+        "id" => "0"
+    ];
     // 現在の日付を取得
     date_default_timezone_set('Asia/Tokyo');
     $now_year = date('Y');
