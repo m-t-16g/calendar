@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -78,7 +79,8 @@
 CAL;
             foreach ($calendar_data as $key => $data) {
                 if ($date == (int)substr($data['date'], -2)) {
-                    echo '<p class="date-title" data-for-modal="' . $key . '">' . $data['time'] . ':' . $data['title'] . '</p>';
+                    $color_map = ['仕事' => 'work', 'プライベート' => 'private', 'その他' => 'other'];
+                    echo '<p class="date-title color-' . $color_map[$data['category']] . '" data-for-id="' . $data['id'] . '" data-for-modal="' . $key . '">' . $data['time'] . ':' . $data['title'] . '</p>';
                 }
             }
             echo '</div>';
@@ -109,9 +111,9 @@ CAL;
                     <p class="modal-para">カテゴリー</p>
                     <select class="form-content form-input" type="select" name="category" />
                     <option value="0">選択してください</option>
-                    <option value="1">就職活動</option>
-                    <option value="2">訓練</option>
-                    <option value="3">プライベート</option>
+                    <option value="1">仕事</option>
+                    <option value="2">プライベート</option>
+                    <option value="3">その他</option>
                     </select>
                 </label>
                 <label>
@@ -120,6 +122,7 @@ CAL;
                 </label>
                 <div class="control">
                     <input type="button" name="delete" class="form-delete" value="削除">
+                    <input type="hidden" name="id" value="0">
                     <input type="submit" name="submit" id="submit-btn" class="form-submit" value="スケジュールを登録する">
                 </div>
             </form>
@@ -159,7 +162,7 @@ CAL;
                 }
                 location.href = NextUrl().href;
             })
-            // 数字の入っているマスをクリックしたらモーダルを開くようにするためモーダルウィンドウを取得、モーダル状態変更の関数を作成
+            // 数字の入っているマスあるいは予定をクリックしたらモーダルを開くようにするためモーダルウィンドウを取得、モーダル状態変更の関数を作成
             // モーダルの中身に現在登録されている内容を反映させるスクリプト
             const ModalBody = document.getElementById('modal');
             const CloseButton = document.getElementById('close-btn');
@@ -195,50 +198,59 @@ CAL;
             const Form = document.getElementById('calendar-form');
             // 数字の入っている各マス目を取得
             const CalendarFields = document.querySelectorAll('.valid');
+            // 予定のバッジを取得
+            const eventBadge = document.querySelectorAll('.date-title');
             // カレンダーのデータを取得
             const CalendarDatas = <?php echo json_encode($calendar_data) ?>;
             CalendarFields.forEach(element => {
-                element.addEventListener('click', () => {
-                    // php側で付与したdata属性からフォームに登録されている内容を付与
-                    if (element.children[1]) {
-                        console.log(element.children[1].dataset.forModal);
-                        const UseData = CalendarDatas[element.children[1].dataset.forModal];
-                        Form.title.value = UseData.title;
-                        Form.date.value = UseData.date;
-                        Form.time.value = UseData.time;
-                        switch (UseData.category) {
-                            case '就職活動':
-                                Form.category.options[1].selected = true
-                                break;
-                            case '訓練':
-                                Form.category.options[2].selected = true
-                                break;
-                            case 'プライベート':
-                                Form.category.options[3].selected = true
-                                break;
-                            default:
-                                Form.category.options[0].selected = true
-                                break;
-                        }
-                        Form.delete.style.display = 'block';
-                        Form.detail.value = UseData.detail;
-                        Form.submit.value = '入力内容を変更する';
-                    } else {
-                        Form.title.value = '';
-                        Form.date.value = DisplayYear + '-' + ('0' + DisplayMonth).slice(-2) + '-' + ('0' + element.id).slice(-2);
-                        Form.time.value = '';
-                        Form.category.options[0].selected = true;
-                        Form.detail.value = '';
-                        Form.delete.style.display = 'none';
-                        Form.submit.value = 'スケジュールを登録する';
-                    }
+                element.addEventListener('click', (target) => {
+                    Form.title.value = '';
+                    Form.date.value = DisplayYear + '-' + ('0' + DisplayMonth).slice(-2) + '-' + ('0' + element.id).slice(-2);
+                    Form.time.value = '';
+                    Form.category.options[0].selected = true;
+                    Form.detail.value = '';
+                    Form.delete.style.display = 'none';
+                    Form.submit.value = 'スケジュールを登録する';
                     ModalOpen();
                 });
+            });
+            eventBadge.forEach(element => {
+                element.addEventListener('click', (event) => {
+                    event.preventDefault()
+                    event.stopPropagation();
+                    // php側で付与したdata属性からフォームに登録されている内容を付与
+                    const UseData = CalendarDatas[element.dataset.forModal];
+                    console.log(UseData);
+                    Form.title.value = UseData.title;
+                    Form.date.value = UseData.date;
+                    Form.time.value = UseData.time;
+                    Form.id.value = UseData.id;
+                    console.log(Form.id.value);
+                    switch (UseData.category) {
+                        case '仕事':
+                            Form.category.options[1].selected = true
+                            break;
+                        case 'プライベート':
+                            Form.category.options[2].selected = true
+                            break;
+                        case 'その他':
+                            Form.category.options[3].selected = true
+                            break;
+                        default:
+                            Form.category.options[0].selected = true
+                            break;
+                    }
+                    Form.delete.style.display = 'block';
+                    Form.detail.value = UseData.detail;
+                    Form.submit.value = '入力内容を変更する';
+                    ModalOpen();
+                })
             });
             // フォームの送信処理
             Form.addEventListener('submit', (event) => {
                 event.stopPropagation();
                 event.preventDefault();
+                const Id = Form.id.value;
                 const Title = Form.title.value;
                 const Date = Form.date.value;
                 const Time = Form.time.value;
@@ -246,11 +258,12 @@ CAL;
                 const Detail = Form.detail.value;
                 const CategoryMap = [
                     null,
-                    "就職活動",
-                    "訓練",
-                    "プライベート"
+                    "仕事",
+                    "プライベート",
+                    "その他"
                 ];
                 const FormData = {
+                    "id": Id,
                     "title": Title,
                     "date": Date,
                     "time": Time,
@@ -258,6 +271,7 @@ CAL;
                     "detail": Detail
                 }
                 if (Title && Date && Time && Category && Detail) {
+
                     fetch('register.php', {
                         method: 'POST',
                         headers: {
@@ -265,10 +279,14 @@ CAL;
                         },
                         body: JSON.stringify(FormData)
                     }).then(
-                        response => response.json()
+                        response => {
+                            location.href = SetMessage().href;
+                            return response.json();
+                        }
                     ).then(
                         res => {
                             console.log(res);
+
                         }
                     );
                     // ボタンを押した際にページを更新、クエリメッセージでメッセージウィンドウを開く
@@ -277,7 +295,6 @@ CAL;
                         CurrentUrl.searchParams.set('message', MessageBody);
                         return CurrentUrl;
                     }
-                    location.href = SetMessage().href;
 
                 } else {
                     window.alert('全ての要素を入力してから登録してください');
@@ -289,7 +306,8 @@ CAL;
             const DeleteBtn = Form.delete;
             DeleteBtn.addEventListener('click', () => {
                 const Date = {
-                    "date": Form.date.value
+                    "date": Form.date.value,
+                    "id": Form.id.value
                 };
                 fetch('delete.php', {
                     method: 'POST',
@@ -298,14 +316,20 @@ CAL;
                     },
                     body: JSON.stringify(Date)
                 }).then(
-                    response => response.json()
+                    response => {
+                        CurrentUrl.searchParams.set('message', 'delete');
+                        location.href = CurrentUrl.href;
+                        return response.json();
+                    }
                 ).then(
                     res => {
                         console.log(res);
+
                     }
-                );
-                CurrentUrl.searchParams.set('message', 'delete');
-                location.href = CurrentUrl.href;
+                ).catch((error => {
+                    console.error(error)
+                }));;
+
             })
         })
     </script>

@@ -1,4 +1,5 @@
 <?php
+
 const PDO_LOCALHOST = 'mysql:host=*;dbname=*;charset=utf8';
 const PDO_CONTAINER = 'mysql:host=*;dbname=*;chaeset=utf8';
 const PDO_STARSERVER = 'mysql:host=*;dbname=*;charset=utf8';
@@ -21,7 +22,7 @@ if ($errorlog) {
     }
 }
 // スターサーバの接続テスト
-if ($errorlog && $container_log) {
+if ($container_log) {
     try {
         $pdo = new PDO(PDO_STARSERVER, '*****', '*****');
     } catch (PDOException $e) {
